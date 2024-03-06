@@ -9,6 +9,9 @@ const todoList = [{
   {
     "id": "3",
     "title": "Stretch"
+  },{
+    "id": "4",
+    "title": "Pet dog"
   }]
 
 function TodoList() {
@@ -20,7 +23,7 @@ function TodoList() {
           );
         })}
       </ul>
-);
+    );
 }
 
 export default TodoList;
