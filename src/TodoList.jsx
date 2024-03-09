@@ -1,5 +1,3 @@
-import TodoListItem from './TodoListItem'
-
 const todoList = [{
     "id": "1",
     "title": "Complete Assignment"
@@ -16,12 +14,16 @@ const todoList = [{
     "title": "Pet dog"
   }]
 
-const TodoList = (props) => {
+function TodoList() {
+    return (
         <ul>
-        {props.todoList.map((todo) => {
-          <TodoListItem key={todo.id}/>
+        {todoList.map(function (item) {
+          return (
+            <li key={item.id}>{item.title}</li>
+          );
         })}
       </ul>
+    );
 }
 
 export default TodoList;
