@@ -1,7 +1,7 @@
 import TodoListItem from "./TodoListItem";
 
 const TodoList = (props) => {
-    console.log(props);
+    // console.log(props);
     return (
         <ul>
             {props.todoList.map((item) =>

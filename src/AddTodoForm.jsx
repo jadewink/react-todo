@@ -1,4 +1,4 @@
-function AddTodoForm(props) {
+function AddTodoForm() {
 
     const handleAddTodo = event => {
         event.preventDefault();
