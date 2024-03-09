@@ -5,6 +5,21 @@ import './App.css'
 import TodoList from './TodoList'
 import AddTodoForm from './AddTodoForm'
 
+const todoList = [{
+  "id": "1",
+  "title": "Complete Assignment"
+},
+{
+  "id": "2",
+  "title": "Read textbook materials",
+},
+{
+  "id": "3",
+  "title": "Stretch"
+}, {
+  "id": "4",
+  "title": "Pet dog"
+},];
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -13,7 +28,7 @@ function App() {
     <>
       <h1>Todo List</h1>
       <AddTodoForm />
-      <TodoList />
+      <TodoList todoList={todoList}/>
    
     </>
   )
