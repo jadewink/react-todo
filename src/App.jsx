@@ -20,12 +20,13 @@ const todoList = [{
 },];
 
 function App(item) {
-  // const [count, setCount] = useState(0)
+  const [newTodo, setnewTodo] = useState(0);
   
   return (
     <>
       <h1>Todo List</h1>
-      <AddTodoForm name={item}/>
+      <AddTodoForm name={item} onAddTodo={setnewTodo} />
+      <p>{newTodo}</p>
       <TodoList todoList={todoList}/>
    
     </>

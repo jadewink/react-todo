@@ -1,12 +1,19 @@
-function AddTodoForm() {
+function AddTodoForm(props) {
 
     const handleAddTodo = event => {
         event.preventDefault();
-        console.log(event.target.title.value);
-        event.target.reset();
+
         // retrieve the value of the title element from the event target and store it in a variable named todoTitle
-        // let todoTitle;
-        // console.log(todoTitle);
+        let todoTitle = event.target.title.value;
+        console.log(todoTitle);
+        event.target.reset();
+        
+        // Invoke the onAddTodo callback prop and pass todoTitle as an argument
+        return (
+            <>
+                {props.onAddTodo(todoTitle)}
+            </>
+        );
     };
 
     return (
