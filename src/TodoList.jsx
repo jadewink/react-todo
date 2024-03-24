@@ -1,29 +1,13 @@
-const todoList = [{
-    "id": "1",
-    "title": "Complete Assignment"
-  },
-  {
-    "id": "2",
-    "title": "Read textbook materials",
-    },
-  {
-    "id": "3",
-    "title": "Stretch"
-  },{
-    "id": "4",
-    "title": "Pet dog"
-  }]
+import TodoListItem from "./TodoListItem";
 
-function TodoList() {
+const TodoList = (props) => {
+    // console.log(props);
     return (
         <ul>
-        {todoList.map(function (item) {
-          return (
-            <li key={item.id}>{item.title}</li>
-          );
-        })}
-      </ul>
+            {props.todoList.map((item) =>
+                <TodoListItem key={item.id} todo={item}/>
+            )}
+        </ul>
     );
 }
-
 export default TodoList;
