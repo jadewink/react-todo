@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function AddTodoForm(props) {
+function AddTodoForm({onAddTodo}) {
     const [todoTitle, setTodoTitle] = useState("");
 
     //retrieve input value from event object and store in ina variable 
@@ -11,12 +11,12 @@ function AddTodoForm(props) {
 
     const handleAddTodo = event => {
         event.preventDefault();
-        setTodoTitle ("");
+        setTodoTitle("");
         
         // Invoke the onAddTodo callback prop and pass object with todoTitle and id as properties
         return (
             <>
-                {props.onAddTodo({ title: todoTitle, id: Date.now() })}
+                {onAddTodo({ title: todoTitle, id: Date.now() })}
             </>
         );
     };
