@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 function AddTodoForm(props) {
-    const [todoTitle, setTodoTitle] = useState();
+    const [todoTitle, setTodoTitle] = useState("");
 
     //retrieve input value from event object and store in ina variable 
     const handleTitleChange = event => {
