@@ -11,12 +11,12 @@ function AddTodoForm(props) {
 
     const handleAddTodo = event => {
         event.preventDefault();
-        event.target.reset();
+        setTodoTitle ("");
         
-        // Invoke the onAddTodo callback prop and pass todoTitle as an argument
+        // Invoke the onAddTodo callback prop and pass object with todoTitle and id as properties
         return (
             <>
-                {props.onAddTodo(todoTitle)}
+                {props.onAddTodo({ title: todoTitle, id: Date.now() })}
             </>
         );
     };
