@@ -11,14 +11,11 @@ function AddTodoForm({onAddTodo}) {
 
     const handleAddTodo = event => {
         event.preventDefault();
-        setTodoTitle("");
-        
         // Invoke the onAddTodo callback prop and pass object with todoTitle and id as properties
-        return (
-            <>
-                {onAddTodo({ title: todoTitle, id: Date.now() })}
-            </>
-        );
+        onAddTodo({ title: todoTitle, id: Date.now() })
+
+        //set state to empty string
+        setTodoTitle("");
     };
 
     return (
