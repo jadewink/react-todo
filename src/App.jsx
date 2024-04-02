@@ -14,8 +14,7 @@ function App(item) {
     }
   
     useEffect(() => {
-      console.log(todoList);
-      localStorage.setItem("savedTodoList", todoList);
+      localStorage.setItem("savedTodoList", JSON.stringify(todoList));
     }, [todoList, savedTodoList]);
     
     return (
