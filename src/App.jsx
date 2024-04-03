@@ -24,12 +24,11 @@ function App(item) {
       setTodoList([...todoList, newTodo])
     }
   
-    return (
+  return (
       <>
         <h1>Todo List</h1>
         <AddTodoForm name={item} onAddTodo={addTodo} />
         <TodoList todoList={todoList} />
-    
       </>
     )
   }
