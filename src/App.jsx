@@ -4,25 +4,27 @@ import TodoList from './TodoList'
 import AddTodoForm from './AddTodoForm'
 
 function App(item) {
-  // const useStorageState = (savedTodoList, initialState) => {
+  // const useStorageState = JSON.parse(localStorage.getItem("savedTodoList"));
+  // const useStorageState = ("savedTodoList", initialState) => {
+    const [todoList, setTodoList] = useState(
+      JSON.parse(localStorage.getItem("savedTodoList"))
+    );
 
-    const [todoList, setTodoList, savedTodoList] = useState([]);
-    // localStorage.getItem(savedTodoList) || initialState
+      useEffect(() => {
+      localStorage.setItem("savedTodoList", JSON.stringify(todoList));
+    }, [todoList]);  
+    // const [todoList, setTodoList] = useState([useStorageState]);
 
     function addTodo(newTodo) {
       setTodoList([...todoList, newTodo])
     }
   
-    useEffect(() => {
-      localStorage.setItem("savedTodoList", JSON.stringify(todoList));
-    }, [todoList, savedTodoList]);
-    
     return (
       <>
         <h1>Todo List</h1>
         <AddTodoForm name={item} onAddTodo={addTodo} />
         <TodoList todoList={todoList} />
-   
+    
       </>
     )
   }
