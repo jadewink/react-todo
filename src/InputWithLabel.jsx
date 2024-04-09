@@ -1,6 +1,6 @@
 const InputWithLabel = (props) => (
         <>
-            <label htmlFor="todoTitle">Title&nbsp;</label>
+            <label htmlFor="todoTitle">{props.label}&nbsp;</label>
             <input id="todoTitle" name="title" value={props.todoTitle} onChange={props.handleTitleChange}></input>&nbsp;
         </>
     );
