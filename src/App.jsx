@@ -3,7 +3,9 @@ import './App.css'
 import TodoList from './TodoList'
 import AddTodoForm from './AddTodoForm'
 
+
 const useSemiPersistentState = () => {
+  //check if localStorage is null, if null set state to empty array, if not null set state to existing list
   const savedTodoList = JSON.parse(localStorage.getItem("savedTodoList"));
   const [todoList, setTodoList] = useState(savedTodoList === null ? [] : savedTodoList
 );
@@ -20,15 +22,22 @@ function App(item) {
     JSON.parse(localStorage.getItem("savedTodoList"))
   );
 
-    function addTodo(newTodo) {
-      setTodoList([...todoList, newTodo])
-    }
+  //add to do list item
+  function addTodo(newTodo) {
+    setTodoList([...todoList, newTodo])
+  }
   
+  //remove to do list item
+  function removeTodo(item) {
+    const newtodoList = todoList.filter((removeItem) => item !== removeItem);
+    setTodoList(newtodoList);
+  }
+
   return (
       <>
         <h1>Todo List</h1>
         <AddTodoForm name={item} onAddTodo={addTodo} />
-        <TodoList todoList={todoList} />
+        <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>
       </>
     )
   }

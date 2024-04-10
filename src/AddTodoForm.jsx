@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import InputWithLabel from './InputWithLabel';
 
-function AddTodoForm({onAddTodo}) {
+function AddTodoForm({ onAddTodo }) {
     const [todoTitle, setTodoTitle] = useState("");
 
     //retrieve input value from event object and store in a variable 
@@ -10,8 +10,14 @@ function AddTodoForm({onAddTodo}) {
         setTodoTitle(newTodoTitle);
     };
 
+    // const isDisabled = (newTodoTitle) => { 
+    //     newTodoTitle = ""
+    // }
+
     const handleAddTodo = event => {
         event.preventDefault();
+
+        
 
         // Invoke the onAddTodo callback prop and pass object with todoTitle and id as properties
         onAddTodo({ id: Date.now(), title: todoTitle });
@@ -24,6 +30,7 @@ function AddTodoForm({onAddTodo}) {
         <form onSubmit={handleAddTodo}>
             <InputWithLabel todoTitle={todoTitle} handleTitleChange={handleTitleChange} isFocused>Title</InputWithLabel>
             <button>Add</button>
+            {/* disabled={this.isDisabled()} */}
         </form>
     );
 }
