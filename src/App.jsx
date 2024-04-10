@@ -7,8 +7,7 @@ import AddTodoForm from './AddTodoForm'
 const useSemiPersistentState = () => {
   //check if localStorage is null, if null set state to empty array, if not null set state to existing list
   const savedTodoList = JSON.parse(localStorage.getItem("savedTodoList"));
-  const [todoList, setTodoList] = useState(savedTodoList === null ? [] : savedTodoList
-);
+  const [todoList, setTodoList] = useState(savedTodoList === null ? [] : savedTodoList);
 
   useEffect(() => {
     localStorage.setItem("savedTodoList", JSON.stringify(todoList));
@@ -18,17 +17,18 @@ const useSemiPersistentState = () => {
 };
 
 function App(item) {
+  //custom hook, get saved to do list
   const [todoList, setTodoList] = useSemiPersistentState(
     JSON.parse(localStorage.getItem("savedTodoList"))
   );
 
-  //add to do list item
   function addTodo(newTodo) {
+    //add to do list item
     setTodoList([...todoList, newTodo])
   }
   
-  //remove to do list item
   function removeTodo(item) {
+    //remove to do list item
     const newtodoList = todoList.filter((removeItem) => item !== removeItem);
     setTodoList(newtodoList);
   }
