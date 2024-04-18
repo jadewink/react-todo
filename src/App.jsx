@@ -9,18 +9,11 @@ function App(item) {
   // const savedTodoList = JSON.parse(localStorage.getItem("savedTodoList"));
   // const [todoList, setTodoList] = useState(savedTodoList === null ? [] : {savedTodoList});
   const [todoList, setTodoList] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
-
-  // const getAsyncList = () =>
-  //   new Promise((resolve, reject) =>
-  //     setTimeout(
-  //       () => resolve({ data: { todoList: savedTodoList } }),
-  //       2000
-  //     )
-  //   );
+  const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
     // setIsLoading(true);
+    let todoList = JSON.parse(localStorage.getItem("savedTodoList"));
     
     new Promise((resolve, reject) =>
       setTimeout(
@@ -31,16 +24,15 @@ function App(item) {
       // Inside the function, use your state setter to update the list and pass the todoList from your result object
       .then((result) => {
         setTodoList(result.data.todoList);
-        // console.log(todoList);
-        // console.log("done");
-        // setIsLoading(false);
-       
-      })
-
-  });
+        setIsLoading(false);
+      });
+  }, []);
 
   useEffect(() => {
-    localStorage.setItem("savedTodoList", JSON.stringify(todoList));
+    if (!isLoading) {
+      localStorage.setItem("savedTodoList", JSON.stringify(todoList));
+      // console.log(todoList);
+    }
   }, [todoList]); 
 
   function addTodo(newTodo) {
