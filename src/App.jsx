@@ -46,12 +46,18 @@ function App(item) {
     setTodoList(newtodoList);
   }
 
-    return (
+    return ( 
       <>
+        
         <h1>Todo List</h1>
         <AddTodoForm name={item} onAddTodo={addTodo} />
-        <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>
+        {isLoading === true ? (
+        <p>Loading...</p>
+        ) : <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>}
+        
       </>
+
+      
     )
     // return (
     //   <div>
