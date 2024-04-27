@@ -8,6 +8,7 @@ function App(item) {
   //check if localStorage is null, if null set state to empty array, if not null set state to existing list
   // const savedTodoList = JSON.parse(localStorage.getItem("savedTodoList"));
   // const [todoList, setTodoList] = useState(savedTodoList === null ? [] : {savedTodoList});
+
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   
@@ -48,7 +49,8 @@ function App(item) {
 
     return ( 
       <>
-        
+        {/* Conditionally display "loading..." indicator. If the to do list is loading, show "Loading..." 
+        Once the to do list becomes visible, hide the loading indicator. */}
         <h1>Todo List</h1>
         <AddTodoForm name={item} onAddTodo={addTodo} />
         {isLoading === true ? (
@@ -56,24 +58,7 @@ function App(item) {
         ) : <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>}
         
       </>
-
-      
     )
-    // return (
-    //   <div>
-    //   ...
-    //   <hr />
-    //   {isLoading ? (
-    //   <p>Loading...</p>
-    //   ) : (
-    //     <>
-    //       <h1>Todo List</h1>
-    //       <AddTodoForm name={item} onAddTodo={addTodo} />
-    //       <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>
-    //     </>
-    //   )}
-    //   </div>
-    // )
   }
 
 export default App
