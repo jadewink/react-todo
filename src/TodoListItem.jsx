@@ -6,7 +6,7 @@ const TodoListItem = ({ todo, onRemoveTodo }) => {
 
         return (
             <>
-                <li key={todo.id}>
+                <li>
                     <span>{todo.title}</span>
                     <span>&nbsp;<button type="button" onClick={handleRemoveItem}>Remove</button></span>
                 </li>
