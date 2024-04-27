@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 function InputWithLabel(props) {
     const inputRef = useRef();
 
+    //focus on input field
     useEffect(() => {
         inputRef.current.focus();
     });
