@@ -13,20 +13,70 @@ function App(item) {
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
-    // setIsLoading(true);
-    let todoList = JSON.parse(localStorage.getItem("savedTodoList"));
     
-    new Promise((resolve, reject) =>
-      setTimeout(
-        () => resolve({ data: { todoList } }),
-        2000
-      ))
+  const loadTodos = async() => {
+    try {
+      const url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`
 
-      // Inside the function, use your state setter to update the list and pass the todoList from your result object
-      .then((result) => {
-        setTodoList(result.data.todoList);
-        setIsLoading(false);
+      const response = await
+        fetch(url, {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`
+            }
+        });
+
+      if (!response.ok) {
+        const message = `Error: ${response.status}`;
+        // const message = `Error`;
+        throw new Error(message);
+      }
+      //get array of todos from API, save it to dataResponse
+      const dataResponse = await response.json();
+      // console.log(dataResponse);
+
+      //map todos from API to same schema as existing todos
+      const todos = dataResponse.records.map((todo) => {
+
+        const newTodo =  {
+            id: todo.id,
+            title: todo.fields.title
+        }
+
+        return newTodo
+
       });
+
+      // console.log(todos);
+      setTodoList(todos);
+      setIsLoading(false);
+    }
+
+    catch (error) {
+      console.log(error.message);
+      // return null;
+    }
+  };
+    
+  loadTodos();
+
+  // useEffect((url, options) => {
+  //   fetch(url, options) // B
+  //   .then((response) => response.json())
+    // setIsLoading(true);
+    // let todoList = JSON.parse(localStorage.getItem("savedTodoList"));
+    
+    // new Promise((resolve, reject) =>
+    //   setTimeout(
+    //     () => resolve({ data: { todoList } }),
+    //     2000
+    //   ))
+
+    //   // Inside the function, use your state setter to update the list and pass the todoList from your result object
+    //   .then((result) => {
+    //     setTodoList(result.data.todoList);
+    //     setIsLoading(false);
+    //   });
   }, []);
 
   useEffect(() => {
