@@ -54,29 +54,12 @@ function App(item) {
 
     catch (error) {
       console.log(error.message);
-      // return null;
+      return null;
     }
   };
     
   loadTodos();
 
-  // useEffect((url, options) => {
-  //   fetch(url, options) // B
-  //   .then((response) => response.json())
-    // setIsLoading(true);
-    // let todoList = JSON.parse(localStorage.getItem("savedTodoList"));
-    
-    // new Promise((resolve, reject) =>
-    //   setTimeout(
-    //     () => resolve({ data: { todoList } }),
-    //     2000
-    //   ))
-
-    //   // Inside the function, use your state setter to update the list and pass the todoList from your result object
-    //   .then((result) => {
-    //     setTodoList(result.data.todoList);
-    //     setIsLoading(false);
-    //   });
   }, []);
 
   useEffect(() => {
@@ -84,7 +67,7 @@ function App(item) {
       localStorage.setItem("savedTodoList", JSON.stringify(todoList));
       // console.log(todoList);
     }
-  }, [todoList]); 
+  }, [todoList, isLoading]); 
 
   function addTodo(newTodo) {
     //add to do list item
