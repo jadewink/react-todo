@@ -61,47 +61,48 @@ function App(item) {
   };
 
   function addTodo(newTodo) {
-    //add to do list item
-    const postTodo = async (newTodo) => {
-      
-      try {
-        const airtableData = {
-          fields: {
-            title: newTodo.title,
-          },
-        }
-
-        const response = await fetch(url,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+    // check if blank
+    if (newTodo.title != "") { // <- check here
+      console.log(newTodo.title);
+      //add to do list item
+      const postTodo = async (newTodo) => {
+        try {
+          const airtableData = {
+            fields: {
+              title: newTodo.title,
             },
-            body: JSON.stringify(airtableData),
           }
-        );
 
-        if (!response.ok) {
-          const message = `Error:${response.status}`;
-          throw new Error(message);
-        }
-    
-        const dataResponse = await response.json();
+          const response = await fetch(url,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+              },
+              body: JSON.stringify(airtableData),
+            }
+          );
 
-        return dataResponse;
+          if (!response.ok) {
+            const message = `Error:${response.status}`;
+            throw new Error(message);
+          }
+          
+          const dataResponse = await response.json();
 
-      } catch (error) {
+          return dataResponse;
+
+        } catch (error) {
           console.log(error.message);
-        return null;
+          return null;
+        }
       }
-      
-    };
-    
-    postTodo(newTodo);
-    setTodoList([...todoList, newTodo])
+        postTodo(newTodo);
+        setTodoList([...todoList, newTodo])
+    }
   }
-  
+
   function removeTodo(item) {
     //remove to do list item
     const newtodoList = todoList.filter((removeItem) => item !== removeItem);
