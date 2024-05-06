@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import TodoList from './TodoList'
 import AddTodoForm from './AddTodoForm'
-
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+      
 function App(item) {
 
   const [todoList, setTodoList] = useState([]);
@@ -109,19 +110,42 @@ function App(item) {
     setTodoList(newtodoList);
   }
 
-    return ( 
-      <>
-        {/* Conditionally display "loading..." indicator. If the to do list is loading, show "Loading..." 
-        Once the to do list becomes visible, hide the loading indicator. */}
-        <h1>Todo List</h1>
-        <AddTodoForm name={item} onAddTodo={addTodo} />
-        {isLoading === true ? (
-        <p>Loading...</p>
-        ) : <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>}
-        
-      </>
-    )
+  // function Dumb() {
+  //   return (
+  //     <>
+  //       {/* Conditionally display "loading..." indicator. If the to do list is loading, show "Loading..."
+  //       Once the to do list becomes visible, hide the loading indicator. */}
+  //       <h1>Todo List</h1>
+  //       <AddTodoForm name={item} onAddTodo={addTodo} />
+  //       {isLoading === true ? (
+  //         <p>Loading...</p>
+  //       ) : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
+  //     </>
+  //   )
+  // }
+ 
+    
+  return ( 
+    
+
+      <BrowserRouter>
+        <Routes>
+        <Route path="/" element={
+            <>
+              {/* Conditionally display "loading..." indicator. If the to do list is loading, show "Loading..."
+              Once the to do list becomes visible, hide the loading indicator. */}
+              <h1>Todo List</h1>
+              <AddTodoForm name={item} onAddTodo={addTodo} />
+              {isLoading === true ? (
+                <p>Loading...</p>
+              ) : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
+            </>
+          } />
+        </Routes>
+      </BrowserRouter>
+
+   
+  )
   }
 
 export default App
-
