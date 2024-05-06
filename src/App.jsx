@@ -109,25 +109,8 @@ function App(item) {
     const newtodoList = todoList.filter((removeItem) => item !== removeItem);
     setTodoList(newtodoList);
   }
-
-  // function Dumb() {
-  //   return (
-  //     <>
-  //       {/* Conditionally display "loading..." indicator. If the to do list is loading, show "Loading..."
-  //       Once the to do list becomes visible, hide the loading indicator. */}
-  //       <h1>Todo List</h1>
-  //       <AddTodoForm name={item} onAddTodo={addTodo} />
-  //       {isLoading === true ? (
-  //         <p>Loading...</p>
-  //       ) : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
-  //     </>
-  //   )
-  // }
- 
     
   return ( 
-    
-
       <BrowserRouter>
         <Routes>
         <Route path="/" element={
@@ -146,9 +129,7 @@ function App(item) {
         } />
         </Routes>
       </BrowserRouter>
-
-   
   )
-  }
+}
 
 export default App
