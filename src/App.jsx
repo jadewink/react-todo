@@ -141,6 +141,9 @@ function App(item) {
               ) : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
             </>
           } />
+        <Route path="/new" element={ 
+          <h1>New Todo List</h1>
+        } />
         </Routes>
       </BrowserRouter>
 
