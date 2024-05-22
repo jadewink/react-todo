@@ -7,7 +7,6 @@
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
-}
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -29,9 +28,9 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: gray;
+  background-color:#242424;
   color:black;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family:Arial, Helvetica, sans-serif
 }
 
 h1 {
@@ -43,11 +42,16 @@ h1 {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
 }
+
 form{
   display:flex;
   justify-content: center;
   align-items: baseline;
   font-size: 1.5em;
+}
+
+label{
+  color:white;
 }
 
 input{
@@ -99,23 +103,19 @@ button:focus-visible {
 
 @media (min-width:320px)  { /* smartphones, iPhone, portrait 480x320 phones */
   h1 {
-    color: rgb(189, 185, 185);
+    color: red;
   }
 }
 @media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
 @media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
   h1 {
-    color:#213547 ;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: white;
+    color:yellow
   } 
 }
 @media (min-width:961px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
 @media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */
   h1 {
-    color: black;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: white;
+    color: green;
   }
 }
 @media (min-width:1281px) { /* hi-res laptops and desktops */ }
