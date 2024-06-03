@@ -2,11 +2,11 @@ import TodoListItem from "./TodoListItem";
 
 const TodoList = ({ todoList, onRemoveTodo }) => {
     return (
-        <ul>
+        <ul >
             {todoList.map((item) =>
                 <TodoListItem key={item.id} todo={item} onRemoveTodo={onRemoveTodo} />
             )}
-        </ul>
+            </ul>
     );
 }
 export default TodoList;

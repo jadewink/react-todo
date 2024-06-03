@@ -1,0 +1,45 @@
+/* TodoListItem.module.css */
+.center {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+ul {
+    display: table;
+    padding-left: 0px !important;
+    /* text-align: center; */
+  }
+
+ul li:before {
+  content: "•\00a0";
+}
+
+li {
+    display: table-row; 
+    text-transform: capitalize;
+    padding-left: 0px;
+    font-size: 1.5em;
+}
+
+span {
+    display: table-cell;
+    padding-bottom: 5px;
+}
+
+.left {
+    color:white;
+    text-align: left;
+    padding-right: 30px;
+}
+
+.right {
+    text-align: right;
+}
+
+button {
+  border-radius: 1px;
+}
+
+
+

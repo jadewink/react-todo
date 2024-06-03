@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import TodoList from './TodoList'
 import AddTodoForm from './AddTodoForm'
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import styles from './TodoListItem.module.css';
       
 function App(item) {
 
@@ -64,7 +65,7 @@ function App(item) {
   function addTodo(newTodo) {
     // check if blank
     if (newTodo.title != "") { // <- check here
-      console.log(newTodo.title);
+      
       //add to do list item
       const postTodo = async (newTodo) => {
         try {
@@ -117,11 +118,14 @@ function App(item) {
             <>
               {/* Conditionally display "loading..." indicator. If the to do list is loading, show "Loading..."
               Once the to do list becomes visible, hide the loading indicator. */}
-              <h1>Todo List</h1>
-              <AddTodoForm name={item} onAddTodo={addTodo} />
-              {isLoading === true ? (
-                <p>Loading...</p>
-              ) : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
+              <h1>TO DO LIST</h1>
+                <span className={styles.center}>
+                    <AddTodoForm name={item} onAddTodo={addTodo} />
+                      {isLoading === true ? (
+                          <p>Loading...</p>
+                  ) : <TodoList todoList={todoList} onRemoveTodo={removeTodo}
+                  />}
+                </span>
             </>
           } />
         <Route path="/new" element={ 
