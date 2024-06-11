@@ -38,10 +38,12 @@ function App(item) {
       }
       //get array of todos from API, save it to dataResponse
       const dataResponse = await response.json();
-
+      
+    
+      
       //map todos from API to same schema as existing todos
       const todos = dataResponse.records.map((todo) => {
-
+       
         const newTodo =  {
             id: todo.id,
             title: todo.fields.title
@@ -52,7 +54,8 @@ function App(item) {
       });
 
       // console.log(todos);
-      setTodoList(todos);
+      sortToDos(todos);
+      
       setIsLoading(false);
     }
 
@@ -61,6 +64,31 @@ function App(item) {
       return null;
     }
   };
+
+  function sortToDos(todos) {
+    //compare the Title field for each object and return the following:
+    
+    const sortedData = [...todos].sort((objectA, objectB) => {
+      //"Title A" is less than "Title B" 
+      if (objectA.title < objectB.title) {
+        return 1;
+      }
+
+      //"Title A" and "Title B" are the same
+      if (objectA.title === objectB.title) {
+        return 0;
+      }
+      
+      //"Title A" is greater than "Title B"
+      if (objectA.title > objectB.title) {
+        return -1;
+      }
+      
+    });
+
+    setTodoList(sortedData);
+      
+    }
 
   function addTodo(newTodo) {
     // check if blank
