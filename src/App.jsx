@@ -53,9 +53,7 @@ function App(item) {
 
       });
 
-      // console.log(todos);
       sortToDos(todos);
-      
       setIsLoading(false);
     }
 
@@ -66,24 +64,24 @@ function App(item) {
   };
 
   function sortToDos(todos) {
-    //compare the Title field for each object and return the following:
+    //compare the Title field for each object
     
     const sortedData = [...todos].sort((objectA, objectB) => {
       //"Title A" is less than "Title B" 
       if (objectA.title < objectB.title) {
         return 1;
       }
-
       //"Title A" and "Title B" are the same
-      if (objectA.title === objectB.title) {
+      else if (objectA.title === objectB.title) {
         return 0;
       }
-      
       //"Title A" is greater than "Title B"
-      if (objectA.title > objectB.title) {
+      else if (objectA.title > objectB.title) {
         return -1;
       }
-      
+      else {
+        return todos;
+      }
     });
 
     setTodoList(sortedData);
