@@ -15,7 +15,7 @@ function App(item) {
 
   useEffect(() => {
     loadTodos();
-  }, [sortType, sortToDos]);
+  }, [sortType]);
 
   useEffect(() => {
     if (!isLoading) {
@@ -64,7 +64,6 @@ function App(item) {
 
   function sortToDos(todos) {
     //compare the Title field for each object
-    // console.log(sortType);
     let sortedData = todos;
 
     if (sortType === "ascending") {
@@ -82,21 +81,8 @@ function App(item) {
         }
       });
     }
-    
-    // const sortedData = [...todos].sort((objectA, objectB) => {
-    //   //"Title A" is less than "Title B" 
-      
-    //   //"Title A" and "Title B" are the same
-
-    //   //"Title A" is greater than "Title B"
-     
-    //   else {
-    //     return todos;
-    //   }
-    // }
 
     setTodoList(sortedData);
-    
     }
 
   function addTodo(newTodo) {
