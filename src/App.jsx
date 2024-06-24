@@ -9,12 +9,13 @@ function App(item) {
 
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  
-  const url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`
+  const [sortType, setSortType] = useState("default");
+
+  const url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}?view=Grid%20view&sort[0][field]=title&sort[0][direction]=asc`
 
   useEffect(() => {
     loadTodos();
-  }, []);
+  }, [sortType]);
 
   useEffect(() => {
     if (!isLoading) {
@@ -22,7 +23,7 @@ function App(item) {
     }
   }, [todoList, isLoading]); 
 
-  const loadTodos = async() => {
+  const loadTodos = async () => {
     try {
       const response = await
         fetch(url, {
@@ -38,10 +39,10 @@ function App(item) {
       }
       //get array of todos from API, save it to dataResponse
       const dataResponse = await response.json();
-
+    
       //map todos from API to same schema as existing todos
       const todos = dataResponse.records.map((todo) => {
-
+       
         const newTodo =  {
             id: todo.id,
             title: todo.fields.title
@@ -51,8 +52,7 @@ function App(item) {
 
       });
 
-      // console.log(todos);
-      setTodoList(todos);
+      sortToDos(todos);
       setIsLoading(false);
     }
 
@@ -61,6 +61,29 @@ function App(item) {
       return null;
     }
   };
+
+  function sortToDos(todos) {
+    //compare the Title field for each object
+    let sortedData = todos;
+
+    if (sortType === "ascending") {
+      sortedData = [...todos].sort((objectA, objectB) => {
+        if (objectA.title < objectB.title) {
+          return 1;
+        }
+      });
+    }
+    
+    if (sortType === "descending") {
+      sortedData = [...todos].sort((objectA, objectB) => {
+        if (objectA.title > objectB.title) {
+          return -1;
+        }
+      });
+    }
+
+    setTodoList(sortedData);
+    }
 
   function addTodo(newTodo) {
     // check if blank
@@ -92,9 +115,9 @@ function App(item) {
           }
           
           const dataResponse = await response.json();
-
+          
           return dataResponse;
-
+          
         } catch (error) {
           console.log(error.message);
           return null;
@@ -102,6 +125,8 @@ function App(item) {
       }
         postTodo(newTodo);
         setTodoList([...todoList, newTodo])
+        
+      
     }
   }
 
@@ -118,7 +143,19 @@ function App(item) {
             <>
               {/* Conditionally display "loading..." indicator. If the to do list is loading, show "Loading..."
               Once the to do list becomes visible, hide the loading indicator. */}
-              <h1>TO DO LIST</h1>
+            <h1>TO DO LIST</h1>
+              <div className="wrapper__sort-buttons">
+                <select
+                  defaultValue="default"
+                  onChange={(e) => setSortType(e.target.value)}
+                >
+                  <option disabled value="default">
+                  Sort by
+                  </option>
+                  <option value="ascending">Ascending</option>
+                  <option value="descending">Descending</option>
+                </select>
+              </div>
                 <span className={styles.center}>
                     <AddTodoForm name={item} onAddTodo={addTodo} />
                       {isLoading === true ? (
