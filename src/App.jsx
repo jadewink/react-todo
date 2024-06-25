@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import TodoList from './components/TodoList'
 import AddTodoForm from './components/AddTodoForm'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import styles from './components/TodoListItem.module.css';
       
 function App(item) {
@@ -10,6 +10,8 @@ function App(item) {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sortType, setSortType] = useState("ascending");
+  // const navigate = useNavigate();
+  // const handleClick = () => navigate('/new');
 
   const url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`
   // const url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}?view=Grid%20view&sort[0][field]=title`
@@ -232,7 +234,8 @@ function App(item) {
               Once the to do list becomes visible, hide the loading indicator. */}
             <h1>TO DO LIST</h1>
             <span className={styles.center}>
-              <AddTodoForm name={item} onAddTodo={addTodo} />
+              {/* <button onClick={handleClick}>+ Add New Item</button> */}
+              <Link to='/new'>+ Add New Items</Link>
                 <br />
                 <div className="wrapper__sort-buttons">
                   <select
@@ -254,7 +257,12 @@ function App(item) {
             </>
           } />
         <Route path="/new" element={ 
-          <h1>New Todo List</h1>
+          <>
+            <h1>ADD TO DO ITEMS</h1>
+            <span className={styles.center}>
+            <AddTodoForm name={item} onAddTodo={addTodo} />
+            </span>
+          </>
         } />
         </Routes>
       </BrowserRouter>
