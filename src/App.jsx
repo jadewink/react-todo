@@ -9,10 +9,10 @@ function App(item) {
 
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [sortType, setSortType] = useState("default");
+  const [sortType, setSortType] = useState("ascending");
 
-  const url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}?view=Grid%20view&sort[0][field]=title&sort[0][direction]=asc`
-
+  const url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}?view=Grid%20view&sort[0][field]=title`
+  // &sort[0][direction]=asc
   useEffect(() => {
     loadTodos();
   }, [sortType]);
@@ -63,25 +63,57 @@ function App(item) {
   };
 
   function sortToDos(todos) {
-    //compare the Title field for each object
-    let sortedData = todos;
+    //create blank variable to hold sorted data
+    let sortedData;
 
+    // = todos;
+    // console.log("sorttype", sortType);
+
+    //if ascending is selected from drop down, sort list in ascending alphabetical order
     if (sortType === "ascending") {
-      sortedData = [...todos].sort((objectA, objectB) => {
+      sortedData = todos.sort((objectA, objectB) => {
+        if (objectA.title < objectB.title) {
+          return -1;
+        }
+        else if (objectA.title > objectB.title) {
+          return 1;
+        }
+        else return 0;
+      });
+      // console.log("in the asc if block");
+      // sortedData = todos.sort((a, b) => {
+      //   if (a.title < b.title) {
+      //     return -1;
+      //   }
+      //   if (a.title > b.title) {
+      //     return 1;
+      //   }
+      //   return 0;
+      // });
+      
+      // console.log(todos);
+      // Output: [ { title: 'Apple' }, { title: 'Banana' }, { title: 'Cherry' }, { title: 'Date' } ]
+        
+      // sortedData = todos.sort((objectA, objectB) => 1);
+      // console.log("sorteddataascifblock", sortedData);
+    }
+    
+    //if descending is selected from drop down, sort list in descending alphabetical order
+    if (sortType === "descending") {
+      sortedData = todos.sort((objectA, objectB) => {
         if (objectA.title < objectB.title) {
           return 1;
         }
-      });
-    }
-    
-    if (sortType === "descending") {
-      sortedData = [...todos].sort((objectA, objectB) => {
-        if (objectA.title > objectB.title) {
+        else if (objectA.title > objectB.title) {
           return -1;
         }
+        else return 0;
       });
+        // console.log("todo" , todos);
+        // console.log("sorted" , sortedData);
+      // });
     }
-
+    // console.log("outofifsorted", sortedData);
     setTodoList(sortedData);
     }
 
@@ -123,9 +155,12 @@ function App(item) {
           return null;
         }
       }
-        postTodo(newTodo);
-        setTodoList([...todoList, newTodo])
-        
+      postTodo(newTodo);
+      // console.log("todolist", [newTodo, ...todoList]);
+      // let sortedTodos = sortToDos([newTodo, ...todoList]);
+      // console.log("sorted with new", sortedTodos);
+      // setTodoList(sortedTodos);
+      sortToDos([newTodo, ...todoList]);
       
     }
   }
@@ -144,25 +179,26 @@ function App(item) {
               {/* Conditionally display "loading..." indicator. If the to do list is loading, show "Loading..."
               Once the to do list becomes visible, hide the loading indicator. */}
             <h1>TO DO LIST</h1>
-              <div className="wrapper__sort-buttons">
-                <select
-                  defaultValue="default"
-                  onChange={(e) => setSortType(e.target.value)}
-                >
-                  <option disabled value="default">
-                  Sort by
-                  </option>
-                  <option value="ascending">Ascending</option>
-                  <option value="descending">Descending</option>
-                </select>
-              </div>
-                <span className={styles.center}>
-                    <AddTodoForm name={item} onAddTodo={addTodo} />
-                      {isLoading === true ? (
-                          <p>Loading...</p>
-                  ) : <TodoList todoList={todoList} onRemoveTodo={removeTodo}
-                  />}
-                </span>
+            <span className={styles.center}>
+              <AddTodoForm name={item} onAddTodo={addTodo} />
+                <br />
+                <div className="wrapper__sort-buttons">
+                  <select
+                    defaultValue="default"
+                    onChange={(e) => setSortType(e.target.value)}
+                   >
+                    <option disabled value="default">
+                    Sort by
+                    </option>
+                    <option value="ascending">Ascending</option>
+                    <option value="descending">Descending</option>
+                  </select>
+                </div>
+                  {isLoading === true ? (
+                      <p>Loading...</p>
+              ) : <TodoList todoList={todoList} onRemoveTodo={removeTodo}
+              />}
+            </span>
             </>
           } />
         <Route path="/new" element={ 
