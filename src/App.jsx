@@ -11,7 +11,8 @@ function App(item) {
   const [isLoading, setIsLoading] = useState(true);
   const [sortType, setSortType] = useState("ascending");
 
-  const url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}?view=Grid%20view&sort[0][field]=title`
+  const url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`
+  // const url = `https://api.airtable.com/v0/${import.meta.env.VITE_AIRTABLE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}?view=Grid%20view&sort[0][field]=title`
   // &sort[0][direction]=asc
   useEffect(() => {
     loadTodos();
@@ -81,16 +82,6 @@ function App(item) {
         else return 0;
       });
       // console.log("in the asc if block");
-      // sortedData = todos.sort((a, b) => {
-      //   if (a.title < b.title) {
-      //     return -1;
-      //   }
-      //   if (a.title > b.title) {
-      //     return 1;
-      //   }
-      //   return 0;
-      // });
-      
       // console.log(todos);
       // Output: [ { title: 'Apple' }, { title: 'Banana' }, { title: 'Cherry' }, { title: 'Date' } ]
         
@@ -123,6 +114,7 @@ function App(item) {
       
       //add to do list item
       const postTodo = async (newTodo) => {
+        await new Promise(resolve => setTimeout(resolve, 1000)); // 1000ms delay
         try {
           const airtableData = {
             fields: {
@@ -140,7 +132,7 @@ function App(item) {
               body: JSON.stringify(airtableData),
             }
           );
-
+          
           if (!response.ok) {
             const message = `Error:${response.status}`;
             throw new Error(message);
@@ -148,6 +140,21 @@ function App(item) {
           
           const dataResponse = await response.json();
           
+          // let newestToDoId = (dataResponse.id);
+          // console.log("newesttodo", newestToDoId);
+
+          const newestTodo =  {
+            id: dataResponse.id,
+            title: dataResponse.fields.title
+          }
+          // console.log("newestTodo", newestTodo);
+          //update state to add newest to do item to todolist
+          
+          let updatedList = [newestTodo, ...todoList];
+          sortToDos(updatedList);
+          setTodoList(updatedList);
+          
+          // console.log("todolistarray", [newestTodo, ...todoList]);
           return dataResponse;
           
         } catch (error) {
@@ -156,20 +163,65 @@ function App(item) {
         }
       }
       postTodo(newTodo);
+      // setTodoList([newTodo, ...todoList]);
+     
       // console.log("todolist", [newTodo, ...todoList]);
-      // let sortedTodos = sortToDos([newTodo, ...todoList]);
+   
       // console.log("sorted with new", sortedTodos);
       // setTodoList(sortedTodos);
       sortToDos([newTodo, ...todoList]);
-      
+      // console.log("array", [newTodo, ...todoList]);
+      // console.log("newtodo", newTodo);
+      // console.log("todolist",todoList);
     }
+    
   }
 
   function removeTodo(item) {
     //remove to do list item
     const newtodoList = todoList.filter((removeItem) => item !== removeItem);
+    
+    // console.log(item.id);
+    // const AirtableDeleteExample = ({ recordId }) => {
+    const handleDelete = async (newTodo) => {
+      // console.log("alphaneum", dataResponse.id);
+      try {
+        await new Promise(resolve => setTimeout(resolve, 1000)); // 1000ms delay
+        // console.log(item.id);
+        const response = await fetch(url + `/${item.id}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+          },
+        });
+        // console.log(newtodoList);
+
+        if (!response.ok) {
+          const message = `Error:${response.status}`;
+          throw new Error(message);
+        }
+
+        // if (response.ok) {
+        //   console.log('Item deleted successfully');
+        //   // Optionally, update state or trigger a refresh of your data
+        // } else {
+        //   console.error('Failed to delete item');
+        //   // Handle error case
+        // }
+      } catch (error) {
+        console.error('Error deleting item:', error);
+      }
+    };
+
+    // return (
+    //   <button onClick={handleDelete}>Delete Item</button>
+    // );
+    // export default AirtableDeleteExample;
+    // sortToDos(newtodoList);
+    handleDelete();
     setTodoList(newtodoList);
-  }
+    // console.log("newlist", newtodoList);
+  };
     
   return ( 
       <BrowserRouter>
