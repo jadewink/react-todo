@@ -261,7 +261,9 @@ function App(item) {
           <>
             <h1>ADD TO DO ITEMS</h1>
             <span className={styles.center}>
-            <AddTodoForm name={item} onAddTodo={addTodo} />
+              <Link to='/'>View To Do List</Link>
+              <br /> 
+              <AddTodoForm name={item} onAddTodo={addTodo} />
             </span>
           </>
         } />
