@@ -174,7 +174,7 @@ function App(item) {
       sortToDos([newTodo, ...todoList]);
       // console.log("array", [newTodo, ...todoList]);
       // console.log("newtodo", newTodo);
-      // console.log("todolist",todoList);
+      //  console.log("todolist",todoList);
     }
     
   }
@@ -183,7 +183,7 @@ function App(item) {
     //remove to do list item
     const newtodoList = todoList.filter((removeItem) => item !== removeItem);
     
-    // console.log(item.id);
+    // console.log("itemwas justremoved", newtodoList);
     // const AirtableDeleteExample = ({ recordId }) => {
     const handleDelete = async (newTodo) => {
       // console.log("alphaneum", dataResponse.id);
@@ -234,6 +234,7 @@ function App(item) {
               Once the to do list becomes visible, hide the loading indicator. */}
             <h1>TO DO LIST</h1>
             <span className={styles.center}>
+
               {/* <button onClick={handleClick}>+ Add New Item</button> */}
               <Link to='/new'>+ Add New Items</Link>
                 <br />
