@@ -11,7 +11,7 @@ const TodoListItem = ({ todo, onRemoveTodo }) => {
             <>
                 <li key={todo.id}>
                     <span className={styles.left}>{todo.title}</span>
-                    <span className={styles.right}><button type="button" onClick={handleRemoveItem}>-</button></span>
+                    <span className={styles.right}><button type="button" onClick={handleRemoveItem} text="Remove">-</button></span>
                 </li>
             </>
         )

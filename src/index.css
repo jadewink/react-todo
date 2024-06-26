@@ -1,6 +1,6 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 2.5;
+  line-height: .5;
   font-weight: 400;
 
   color-scheme: light dark;
@@ -41,6 +41,7 @@ h1 {
   text-align: center;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
+  margin-bottom: 10px;
 }
 
 form{
